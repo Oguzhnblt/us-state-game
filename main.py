@@ -15,17 +15,23 @@ guessed_states = []
 while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50 Eyalet", prompt="Eyaleti girin").title()
 
+    # if answer_state == "Exit":  # Oyundan çıkmak için
+    #    missing_states = []
+    #    for state in all_states:
+    #        if state not in guessed_states:
+    #            missing_states.append(state)
+    #    new_data = pandas.DataFrame(missing_states)
+    #    new_data.to_csv("states_to_learn.csv")
+    #    break
+
+    # List Comprehension Metodu ile yazılmış hali
     if answer_state == "Exit":  # Oyundan çıkmak için
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in all_states if state not in guessed_states]
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
         break
 
-
-        # If answer_state is one of the states in all the states of the 50_states
+    # If answer_state is one of the states in all the states of the 50_states
     if answer_state in all_states:
         guessed_states.append(answer_state)
         t = turtle.Turtle()
